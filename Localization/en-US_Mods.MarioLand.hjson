@@ -1,0 +1,269 @@
+GUI.CustomLoadout: Mario Land Loadout
+
+Items: {
+	MariosCap: {
+		DisplayName: Mario's Cap
+		Tooltip:
+			'''
+			Transforms its wearer into Mario
+			Stomp on enemies to damage them, or Ground-Pound for an instant kill
+			Wall-jump, double-jump, or triple-jump for extra height
+			Gain the ability to swim in water
+			'''
+	}
+
+	LuigisCap: {
+		DisplayName: Luigi's Cap
+		Tooltip:
+			'''
+			Transforms its wearer into Luigi
+			Stomp on enemies to damage them, or Ground-Pound for an instant kill
+			Wall-jump, double-jump, or triple-jump for extra height
+			Gain the ability to swim in water
+			'''
+	}
+
+	FireFlower: {
+		DisplayName: Fire Flower
+		Tooltip:
+			'''
+			Gives its user fireball-conjuring powers
+			Left click to shoot a bouncing fireball, which has a chance to burn its target
+			'''
+	}
+
+	IceFlower: {
+		DisplayName: Ice Flower
+		Tooltip:
+			'''
+			Gives its user iceball-conjuring powers
+			Left click to shoot a bouncing iceball, which has a chance to frostburn its target
+			'''
+	}
+
+	SuperLeaf: {
+		DisplayName: Super Leaf
+		Tooltip:
+			'''
+			Gives its user a racoon tail
+			Left click to swipe surrounding enemies
+			Start flying by jumping repeatedly with full P-Speed
+			Stall your descent by jumping repeatedly
+			'''
+	}
+
+	TanookiSuit: {
+		DisplayName: Tanooki Suit
+		Tooltip:
+			'''
+			Turns its user into a tanooki
+			Left click to swipe surrounding enemies
+			Start flying by jumping repeatedly with full P-Speed
+			Stall your descent by jumping repeatedly
+			Ground pound to turn into a statue, which grants ground pound damage to bosses and instantly kills approaching enemies
+			'''
+	}
+
+	CapeFeather: {
+		DisplayName: Cape Feather
+		Tooltip: ""
+	}
+
+	FrogSuit: {
+		DisplayName: Frog Suit
+		Tooltip:
+			'''
+			Turns its user into a frog, capable of jumping high and swimming quickly
+			In exchange for better movement through liquid, mobility is reduced when on land
+			'''
+	}
+
+	MaxMushroom: {
+		DisplayName: Max Mushroom
+		Tooltip: ""
+	}
+
+	SuperMushroom: {
+		DisplayName: Super Mushroom
+		Tooltip: ""
+	}
+
+	UltraMushroom: {
+		DisplayName: Ultra Mushroom
+		Tooltip: ""
+	}
+
+	OneUpDeluxe: {
+		DisplayName: 1-Up Deluxe
+		Tooltip:
+			'''
+			This special mushroom will revive you if present in your inventory or Void Bag
+			Restores you to full HP
+			'''
+	}
+
+	OneUpMushroom: {
+		DisplayName: 1-Up Mushroom
+		Tooltip:
+			'''
+			This special mushroom will revive you if present in your inventory or Void Bag
+			Restores you to half HP
+			'''
+	}
+
+	PoisonMushroom: {
+		DisplayName: Poison Mushroom
+		Tooltip:
+			'''
+			This special mushroom will harm those who consume it, giving them 5 seconds to think about what they've done
+			'Why would you ever eat this'
+			'''
+	}
+
+	HammerSuit: {
+		DisplayName: Hammer Suit
+		Tooltip:
+			'''
+			Gives its user hammer-conjuring powers
+			Left click to throw a hammer, which travels in an awkward arc
+			The hammer's horizontal distance can be somewhat controlled
+			'''
+	}
+
+	AOKWear: {
+		DisplayName: A-OK Wear
+		Tooltip:
+			'''
+			HP +30, SP +10, POW +20, DEF +150
+			Immunity to all debuffs
+			'''
+	}
+
+	DStarWear: {
+		DisplayName: D-Star Wear
+		Tooltip: POW +80
+	}
+
+	BalmWear: {
+		DisplayName: Balm Wear
+		Tooltip: DEF +90
+	}
+
+	BrawnyWear: {
+		DisplayName: Brawny Wear
+		Tooltip: POW +10, DEF +45
+	}
+
+	FighterWear: {
+		DisplayName: Fighter Wear
+		Tooltip: POW +5, DEF +25
+	}
+
+	GrownUpWear: {
+		DisplayName: Grown-Up Wear
+		Tooltip: DEF +50
+	}
+
+	HeartWear: {
+		DisplayName: Heart Wear
+		Tooltip: HP +10, DEF +80
+	}
+
+	HeroWear: {
+		DisplayName: Hero Wear
+		Tooltip: DEF +60
+	}
+
+	KingWear: {
+		DisplayName: King Wear
+		Tooltip: DEF +100
+	}
+
+	KoopaWear: {
+		DisplayName: Koopa Wear
+		Tooltip: DEF +40
+	}
+
+	LeisureWear: {
+		DisplayName: Leisure Wear
+		Tooltip: DEF +30
+	}
+
+	MasterWear: {
+		DisplayName: Master Wear
+		Tooltip: SP +20, POW +25%, DEF +140
+	}
+
+	MuscleWear: {
+		DisplayName: Muscle Wear
+		Tooltip: POW +20, DEF +65
+	}
+
+	PicnicWear: {
+		DisplayName: Picnic Wear
+		Tooltip: DEF +15
+	}
+
+	StarWear: {
+		DisplayName: Star Wear
+		Tooltip: HP +20, SP +10, DEF +120
+	}
+
+	ThinWear: {
+		DisplayName: Thin Wear
+		Tooltip: DEF +5
+	}
+
+	Overalls: {
+		DisplayName: Overalls
+		Tooltip:
+			'''
+			This item is only used to identify the category an item from this mod belongs to
+			It is unused in normal gameplay, inaccessible by normal means, and only visible when viewing the item's information
+			'''
+	}
+
+	PowerUp: {
+		DisplayName: Power-Up
+		Tooltip:
+			'''
+			This item is only used to identify the category an item from this mod belongs to
+			It is unused in normal gameplay, inaccessible by normal means, and only visible when viewing the item's information
+			'''
+	}
+
+	Transformation: {
+		DisplayName: Transformation
+		Tooltip:
+			'''
+			This item is only used to identify the category an item from this mod belongs to
+			It is unused in normal gameplay, inaccessible by normal means, and only visible when viewing the item's information
+			'''
+	}
+
+	RealLuigiPaintingItem: {
+		DisplayName: Interesting Luigi Poster
+		Tooltip:
+			'''
+			For when things get *real*
+			'Does not come with spaghetti'
+			'''
+	}
+
+	RealMarioPaintingItem: {
+		DisplayName: Interesting Mario Poster
+		Tooltip:
+			'''
+			For when things get *real*
+			'Does not come with spaghetti'
+			'''
+	}
+}
+
+Keybinds.ReloadUI.DisplayName: Reload UI
+
+Projectiles: {
+	FireballPowerUpFlower.DisplayName: Fireball
+	TailSwipeProjectile.DisplayName: Tail Swipe
+	HammerSuitHammer.DisplayName: Hammer Suit Hammer
+}
