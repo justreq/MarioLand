@@ -92,6 +92,7 @@
 		<None Remove="Content\Items\Socks\SocksItem.png" />
 		<None Remove="Content\Items\Transformations\LuigisCap.png" />
 		<None Remove="Content\Items\Transformations\MariosCap.png" />
+		<None Remove="Content\NPCs\Goomba.png" />
 		<None Remove="Content\Projectiles\FireballPowerUpFlower.png" />
 		<None Remove="Content\Projectiles\HammerSuitHammer.png" />
 		<None Remove="Content\Tiles\BrickBlock.png" />

@@ -1,0 +1,160 @@
+﻿using Terraria.ID;
+using Terraria;
+using Terraria.ModLoader;
+using System;
+using Terraria.ModLoader.Utilities;
+using Microsoft.Xna.Framework;
+
+namespace MarioLand.Content.NPCs;
+public class Goomba : ModNPC
+{
+    private enum State
+    {
+        Chill,
+        RunAway,
+        RunToward,
+        Surprise,
+    }
+
+    // These are reference properties. One, for example, lets us write AI_State as if it's NPC.ai[0], essentially giving the index zero our own name.
+    // Here they help to keep our AI code clear of clutter. Without them, every instance of "AI_State" in the AI code below would be "npc.ai[0]", which is quite hard to read.
+    // This is all to just make beautiful, manageable, and clean code.
+    public ref float AI_State => ref NPC.ai[0];
+    public ref float AI_Timer => ref NPC.ai[1];
+
+    public float RequestedSpeed = 0f;
+
+    public override void SetStaticDefaults()
+    {
+        Main.npcFrameCount[NPC.type] = 31;
+    }
+
+    public override void SetDefaults()
+    {
+        NPC.width = 34;
+        NPC.height = 42;
+        NPC.aiStyle = -1;
+        NPC.damage = 1;
+        NPC.defense = 1;
+        NPC.lifeMax = 1;
+        NPC.value = 1f;
+    }
+
+    public override float SpawnChance(NPCSpawnInfo spawnInfo)
+    {
+        return SpawnCondition.OverworldDaySlime.Chance * 0.1f;
+    }
+
+    public override void AI()
+    {
+        switch (AI_State)
+        {
+            case (float)State.Chill:
+                Chill();
+                break;
+            case (float)State.RunAway:
+                RunAway();
+                break;
+            case (float)State.RunToward:
+                RunToward();
+                break;
+            case (float)State.Surprise:
+                Surprise();
+                break;
+        }
+    }
+
+    private void CycleFrames(int frameHeight, int frameRate, int firstFrame, int lastFrame)
+    {
+        NPC.frameCounter++;
+
+        if (NPC.frameCounter < frameRate * (lastFrame - firstFrame))
+        {
+            NPC.frame.Y = frameHeight * (firstFrame + (int)Math.Floor(NPC.frameCounter / frameRate)) + 1;
+        }
+        else NPC.frameCounter = 0;
+    }
+
+    public override void FindFrame(int frameHeight)
+    {
+        NPC.spriteDirection = NPC.direction;
+
+        switch (AI_State)
+        {
+            case (float)State.Chill:
+                if (NPC.velocity.X == 0) NPC.frame.Y = 0;
+                else CycleFrames(frameHeight, 5, 17, 24);
+                break;
+            case (float)State.RunAway:
+                CycleFrames(frameHeight, 5, 1, 8);
+                break;
+            case (float)State.RunToward:
+                CycleFrames(frameHeight, 5, 9, 16);
+                break;
+            case (float)State.Surprise:
+                CycleFrames(frameHeight, 5, 25, 31);
+                break;
+        }
+    }
+
+    public override bool? CanFallThroughPlatforms()
+    {
+        return AI_State == (float)State.RunToward && NPC.HasValidTarget && Main.player[NPC.target].Top.Y > NPC.Bottom.Y;
+    }
+
+    private void Chill()
+    {
+        NPC.TargetClosest(false);
+
+        if (NPC.velocity.X == 0)
+        {
+            if (NPC.direction == 1) RequestedSpeed = -1f;
+            else if (NPC.direction == -1) RequestedSpeed = 1f;
+            else RequestedSpeed = Main.rand.NextFromList(-1f, 1f);
+        }
+
+        NPC.velocity.X = RequestedSpeed;
+        NPC.direction = Math.Sign(RequestedSpeed);
+
+        if (NPC.HasValidTarget && Main.player[NPC.target].Distance(NPC.Center) < 150f)
+        {
+            AI_State = (float)State.Surprise;
+            AI_Timer = 0;
+        }
+    }
+
+    private void Surprise()
+    {
+        AI_Timer++;
+        NPC.velocity.X = 0f;
+
+        if (AI_Timer >= 30)
+        {
+            RequestedSpeed = 0f;
+            AI_State = NPC.ai[2] == 0 ? (float)State.RunToward : (float)State.RunAway;
+            AI_Timer = 0;
+        }
+    }
+
+    private void RunToward()
+    {
+        int requestedDirection = Math.Sign(Main.player[NPC.target].Center.X - NPC.Center.X);
+
+        if (requestedDirection == -1 && RequestedSpeed > -2f) RequestedSpeed -= 0.1f;
+        else if (requestedDirection == 1 && RequestedSpeed < 2f) RequestedSpeed += 0.1f;
+
+        NPC.velocity.X = RequestedSpeed;
+        NPC.TargetClosest(true);
+    }
+
+    private void RunAway()
+    {
+        int requestedDirection = -Math.Sign(Main.player[NPC.target].Center.X - NPC.Center.X);
+
+        if (requestedDirection == -1 && RequestedSpeed > -2f) RequestedSpeed -= 0.1f;
+        else if (requestedDirection == 1 && RequestedSpeed < 2f) RequestedSpeed += 0.1f;
+
+        NPC.velocity.X = RequestedSpeed;
+        NPC.direction = requestedDirection;
+    }
+}

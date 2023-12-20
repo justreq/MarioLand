@@ -267,3 +267,5 @@ Projectiles: {
 	TailSwipeProjectile.DisplayName: Tail Swipe
 	HammerSuitHammer.DisplayName: Hammer Suit Hammer
 }
+
+NPCs.Goomba.DisplayName: Goomba
