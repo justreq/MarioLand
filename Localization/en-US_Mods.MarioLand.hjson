@@ -48,7 +48,7 @@ Items: {
 			Gives its user a racoon tail
 			Left click to swipe surrounding enemies
 			Start flying by jumping repeatedly with full P-Speed
-			Stall your descent by jumping repeatedly
+			Stall your descent by holding jump
 			'''
 	}
 
@@ -59,7 +59,7 @@ Items: {
 			Turns its user into a tanooki
 			Left click to swipe surrounding enemies
 			Start flying by jumping repeatedly with full P-Speed
-			Stall your descent by jumping repeatedly
+			Stall your descent by holding jump
 			Ground pound to turn into a statue, which grants ground pound damage to bosses and instantly kills approaching enemies
 			'''
 	}

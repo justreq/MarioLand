@@ -14,7 +14,7 @@ using Terraria.UI;
 namespace MarioLand.Common.PassportUI;
 public class PassportUIState : UIState
 {
-    public static bool Visible => Main.LocalPlayer.GetModPlayer<MarioLandPlayer>().DoTransformationEffects;
+    public static bool Visible => false/*Main.LocalPlayer.GetModPlayer<MarioLandPlayer>().DoTransformationEffects*/;
     public bool ShowPassport = false;
 
     public static Player UICharacter;

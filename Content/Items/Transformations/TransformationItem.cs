@@ -28,10 +28,7 @@ public abstract class TransformationItem : ModItem
 
     public override void ModifyTooltips(List<TooltipLine> tooltips)
     {
-        TooltipLine itemName = tooltips[tooltips.FindIndex(e => e.Name == "ItemName")];
-
-        itemName.Text += $" [i:{nameof(MarioLand)}/{nameof(Transformation)}] {nameof(Transformation)}";
-        itemName.OverrideColor = Main.DiscoColor;
+        tooltips[tooltips.FindIndex(e => e.Name == "Equipable")].Text += $" Transformation";
     }
 
     public override bool? PrefixChance(int pre, UnifiedRandom rand)
@@ -52,6 +49,9 @@ public abstract class TransformationItem : ModItem
         player.lifeRegen = 0;
         player.lifeRegenTime = 0;
 
+        player.statDefense += modPlayer.StatDef + modPlayer.StatDefBonus;
+        player.statLifeMax2 = modPlayer.StatHPMax + modPlayer.StatHPMaxBonus;
+
         if (player.mount.Type == -1)
         {
             if (modPlayer.PreviousPowerUp != MarioLand.PowerUp.FrogSuit)
@@ -71,12 +71,7 @@ public abstract class TransformationItem : ModItem
         modPlayer.JumpDamageCooldown = (int)MathHelper.Clamp(modPlayer.JumpDamageCooldown + 1, 0, 10);
         if (modPlayer.IsGrounded) modPlayer.StompCount = 0;
 
-        if (PlayerInput.Triggers.JustPressed.Jump && modPlayer.IsGrounded && !player.wet) SoundEngine.PlaySound(new($"{nameof(MarioLand)}/Assets/Sounds/Jump"));
-        if (PlayerInput.Triggers.JustPressed.Jump && player.wet && modPlayer.PreviousPowerUp != MarioLand.PowerUp.FrogSuit) SoundEngine.PlaySound(new($"{nameof(MarioLand)}/Assets/Sounds/Swim"));
+        if (PlayerInput.Triggers.JustPressed.Jump && modPlayer.IsGrounded && !player.wet) SoundEngine.PlaySound(new($"{nameof(MarioLand)}/Assets/Sounds/Jump") { Volume = 0.5f });
+        if (PlayerInput.Triggers.JustPressed.Jump && player.wet && modPlayer.PreviousPowerUp != MarioLand.PowerUp.FrogSuit) SoundEngine.PlaySound(new($"{nameof(MarioLand)}/Assets/Sounds/Swim") { Volume = 0.5f });
     }
-}
-
-public class Transformation : ModItem
-{
-    public override string Texture => string.Concat(base.Texture.AsSpan(0, base.Texture.LastIndexOf("/") + 1), "MariosCap");
 }

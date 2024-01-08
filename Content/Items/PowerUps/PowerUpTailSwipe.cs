@@ -1,8 +1,10 @@
 ﻿using MarioLand.Common.Players;
 using MarioLand.Content.Projectiles;
 using Microsoft.Xna.Framework;
+using ReLogic.Utilities;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameInput;
 using Terraria.ModLoader;
 
@@ -32,6 +34,8 @@ public abstract class PowerUpTailSwipe : PowerUpItem
     bool Swiping = false;
     int SwipeTimer = 0;
     int StartingDirection;
+    SlotId tailGlideSoundSlot;
+    SoundStyle tailGlideSound = new($"{nameof(MarioLand)}/Assets/Sounds/TailGlide") { Volume = 0.5f };
     public override void UpdateEquip(Player player)
     {
         MarioLandPlayer modPlayer = player.GetModPlayer<MarioLandPlayer>();
@@ -52,12 +56,17 @@ public abstract class PowerUpTailSwipe : PowerUpItem
 
             if (modPlayer.PSpeedTimer == 0) modPlayer.HasPSpeed = false;
         }
-        else if (!modPlayer.IsGrounded && PlayerInput.Triggers.Current.Jump && player.velocity.Y > 0) player.velocity.Y = 2f;
+        else if (!modPlayer.IsGrounded && PlayerInput.Triggers.Current.Jump && player.velocity.Y > 0)
+        {
+            if (!SoundEngine.TryGetActiveSound(tailGlideSoundSlot, out _)) tailGlideSoundSlot = SoundEngine.PlaySound(tailGlideSound);
+            player.velocity.Y = 2f;
+        }
 
         if (PlayerInput.Triggers.JustPressed.MouseLeft && !player.mouseInterface && Main.mouseItem.IsAir && player.HeldItem.IsAir && !Swiping && modPlayer.ConsecutiveJumpCount != 3 && !modPlayer.TanookiStatue && player.mount.Type == -1)
         {
             StartingDirection = player.direction;
             Swiping = true;
+            SoundEngine.PlaySound(new($"{nameof(MarioLand)}/Assets/Sounds/TailSwipe") { Volume = 0.5f });
 
             for (int i = 0; i < 2; i++)
             {

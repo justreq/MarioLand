@@ -5,10 +5,16 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.Utilities;
 using System;
+using Terraria.ID;
 
 namespace MarioLand.Content.Items.Overalls;
 public abstract class OverallsItem : ModItem
 {
+    public override bool IsLoadingEnabled(Mod mod)
+    {
+        return false;
+    }
+
     public override void SetStaticDefaults()
     {
         Item.ResearchUnlockCount = 1;
@@ -23,10 +29,7 @@ public abstract class OverallsItem : ModItem
 
     public override void ModifyTooltips(List<TooltipLine> tooltips)
     {
-        TooltipLine itemName = tooltips[tooltips.FindIndex(e => e.Name == "ItemName")];
-
-        itemName.Text += $" [i:{nameof(MarioLand)}/{nameof(Overalls)}] {nameof(Overalls)}";
-        itemName.OverrideColor = Main.DiscoColor;
+        tooltips[tooltips.FindIndex(e => e.Name == "Equipable")].Text += $" Overalls";
     }
 
     public override bool? PrefixChance(int pre, UnifiedRandom rand)
@@ -39,5 +42,3 @@ public abstract class OverallsItem : ModItem
         return modded && slot == ModContent.GetInstance<SlotOveralls>().Type;
     }
 }
-
-public class Overalls : ModItem { }

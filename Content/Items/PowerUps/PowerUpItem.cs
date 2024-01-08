@@ -43,10 +43,7 @@ public abstract class PowerUpItem : ModItem
 
     public override void ModifyTooltips(List<TooltipLine> tooltips)
     {
-        TooltipLine itemName = tooltips[tooltips.FindIndex(e => e.Name == "ItemName")];
-
-        itemName.Text += $" [i:{nameof(MarioLand)}/{nameof(PowerUp)}] Power-Up";
-        itemName.OverrideColor = Main.DiscoColor;
+        tooltips[tooltips.FindIndex(e => e.Name == "Equipable")].Text += $" Power-Up";
     }
 
     public override bool? PrefixChance(int pre, UnifiedRandom rand)
@@ -99,9 +96,4 @@ public abstract class PowerUpItem : ModItem
         Item.GetGlobalItem<MarioLandGlobalItem>().lightColor = lightColor;
         return false;
     }
-}
-
-public class PowerUp : ModItem
-{
-    public override string Texture => $"{nameof(MarioLand)}/Assets/Textures/VanillaMushroom";
 }

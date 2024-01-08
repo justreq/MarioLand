@@ -44,7 +44,7 @@ public abstract class PowerUpFlower : PowerUpItem
 
             modPlayer.ForceDirection = direction;
 
-            SoundEngine.PlaySound(new($"{nameof(MarioLand)}/Assets/Sounds/{Data.useSoundName}"));
+            SoundEngine.PlaySound(new($"{nameof(MarioLand)}/Assets/Sounds/{Data.useSoundName}") { Volume = 0.5f });
             Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, new Vector2(5 * direction, 0f), ModContent.ProjectileType<FireballPowerUpFlower>(), modPlayer.StatPowActual, 0f, player.whoAmI, Data.projectileAI0);
 
             modPlayer.JustSummonedProjectile = true;

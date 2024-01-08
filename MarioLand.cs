@@ -64,9 +64,11 @@ public class MarioLand : Mod
         { new(186, 12, 47), new(155, 17, 30), new(143, 7, 15) }
     };
 
-    public static List<string> TransformationEquipTextures = new();
+    public static List<string> TransformationEquipTextures = [];
 
-    public static List<int> IllegalHealingItem = new() { ItemID.LesserHealingPotion, ItemID.HealingPotion, ItemID.GreaterHealingPotion, ItemID.SuperHealingPotion, ItemID.BottledHoney, ItemID.StrangeBrew, ItemID.LesserRestorationPotion, ItemID.RestorationPotion };
+    public static List<int> IllegalHealingItems = [ItemID.LesserHealingPotion, ItemID.HealingPotion, ItemID.GreaterHealingPotion, ItemID.SuperHealingPotion, ItemID.BottledHoney, ItemID.StrangeBrew, ItemID.LesserRestorationPotion, ItemID.RestorationPotion];
+
+    public static List<PowerUp> TailPowerUps = [PowerUp.SuperLeaf, PowerUp.TanookiSuit];
 
     private Asset<Texture2D> oldMushroomTexture;
 

@@ -46,7 +46,7 @@ public class MarioLandGlobalItem : GlobalItem
 
     public override void GetHealLife(Item item, Player player, bool quickHeal, ref int healValue)
     {
-        if (player.GetModPlayer<MarioLandPlayer>().DoTransformationEffects && MarioLand.IllegalHealingItem.Contains(item.type)) healValue = 0;
+        if (player.GetModPlayer<MarioLandPlayer>().DoTransformationEffects && MarioLand.IllegalHealingItems.Contains(item.type)) healValue = 0;
 
         base.GetHealLife(item, player, quickHeal, ref healValue);
     }
@@ -55,7 +55,7 @@ public class MarioLandGlobalItem : GlobalItem
     {
         MarioLandPlayer modPlayer = player.GetModPlayer<MarioLandPlayer>();
 
-        if (modPlayer.DoTransformationEffects && MarioLand.IllegalHealingItem.Contains(item.type)) modPlayer.JustConsumedBadItem = true;
+        if (modPlayer.DoTransformationEffects && MarioLand.IllegalHealingItems.Contains(item.type)) modPlayer.JustConsumedBadItem = true;
         base.OnConsumeItem(item, player);
     }
 }

@@ -22,6 +22,9 @@
 		<None Remove="Assets\Textures\Transformations\Mario\MarioFireFlower_Body.png" />
 		<None Remove="Assets\Textures\Transformations\Mario\MarioFireFlower_Head.png" />
 		<None Remove="Assets\Textures\Transformations\Mario\MarioFireFlower_Legs.png" />
+		<None Remove="Assets\Textures\Transformations\Mario\MarioHammerSuit_Body.png" />
+		<None Remove="Assets\Textures\Transformations\Mario\MarioHammerSuit_Head.png" />
+		<None Remove="Assets\Textures\Transformations\Mario\MarioHammerSuit_Legs.png" />
 		<None Remove="Assets\Textures\Transformations\Mario\MarioIceFlower_Body.png" />
 		<None Remove="Assets\Textures\Transformations\Mario\MarioIceFlower_Head.png" />
 		<None Remove="Assets\Textures\Transformations\Mario\MarioIceFlower_Legs.png" />
@@ -34,6 +37,12 @@
 		<None Remove="Assets\Textures\Transformations\Mario\MarioSuperLeaf_Body.png" />
 		<None Remove="Assets\Textures\Transformations\Mario\MarioSuperLeaf_Head.png" />
 		<None Remove="Assets\Textures\Transformations\Mario\MarioSuperLeaf_Legs.png" />
+		<None Remove="Assets\Textures\Transformations\Mario\MarioTanookiSuitFlying_Body.png" />
+		<None Remove="Assets\Textures\Transformations\Mario\MarioTanookiSuitFlying_Head.png" />
+		<None Remove="Assets\Textures\Transformations\Mario\MarioTanookiSuitFlying_Legs.png" />
+		<None Remove="Assets\Textures\Transformations\Mario\MarioTanookiSuit_Body.png" />
+		<None Remove="Assets\Textures\Transformations\Mario\MarioTanookiSuit_Head.png" />
+		<None Remove="Assets\Textures\Transformations\Mario\MarioTanookiSuit_Legs.png" />
 		<None Remove="Assets\Textures\UI\PassportUIToggleClosed.png" />
 		<None Remove="Assets\Textures\UI\PassportUIToggleClosedHover.png" />
 		<None Remove="Assets\Textures\UI\PassportUIToggleOpened.png" />
@@ -76,7 +85,6 @@
 		<None Remove="Content\Items\Overalls\LeisureWear.png" />
 		<None Remove="Content\Items\Overalls\MasterWear.png" />
 		<None Remove="Content\Items\Overalls\MuscleWear.png" />
-		<None Remove="Content\Items\Overalls\Overalls.png" />
 		<None Remove="Content\Items\Overalls\PicnicWear.png" />
 		<None Remove="Content\Items\Overalls\StarWear.png" />
 		<None Remove="Content\Items\Overalls\ThinWear.png" />

@@ -67,12 +67,54 @@ public abstract class MarioLandSlotAccessory : MarioLandSlot
 }
 
 [Context(MarioLand.ItemContext.Transformation)] public class SlotTransformation : MarioLandSlot { }
+
 [Context(MarioLand.ItemContext.PowerUp)] public class SlotPowerUp : MarioLandSlot { }
-[Context(MarioLand.ItemContext.Overalls)] public class SlotOveralls : MarioLandSlot { }
-[Context(MarioLand.ItemContext.Gloves)] public class SlotGloves : MarioLandSlot { }
-[Context(MarioLand.ItemContext.Socks)] public class SlotSocks : MarioLandSlot { }
-[Context(MarioLand.ItemContext.Boots)] public class SlotBoots : MarioLandSlot { }
-[Context(MarioLand.ItemContext.Accessory)] public class SlotAccessory1 : MarioLandSlotAccessory { }
+
+[Context(MarioLand.ItemContext.Overalls)]
+public class SlotOveralls : MarioLandSlot
+{
+    public override bool IsEnabled()
+    {
+        return false;
+    }
+}
+
+[Context(MarioLand.ItemContext.Gloves)]
+public class SlotGloves : MarioLandSlot
+{
+    public override bool IsEnabled()
+    {
+        return false;
+    }
+}
+
+[Context(MarioLand.ItemContext.Socks)]
+public class SlotSocks : MarioLandSlot
+{
+    public override bool IsEnabled()
+    {
+        return false;
+    }
+}
+
+[Context(MarioLand.ItemContext.Boots)]
+public class SlotBoots : MarioLandSlot
+{
+    public override bool IsEnabled()
+    {
+        return false;
+    }
+}
+
+[Context(MarioLand.ItemContext.Accessory)]
+public class SlotAccessory1 : MarioLandSlotAccessory
+{
+    public override bool IsEnabled()
+    {
+        return false;
+    }
+}
+
 [Context(MarioLand.ItemContext.Accessory)]
 public class SlotAccessory2 : MarioLandSlotAccessory
 {
@@ -81,6 +123,7 @@ public class SlotAccessory2 : MarioLandSlotAccessory
         return base.IsEnabled() && Player.GetModPlayer<MarioLandPlayer>().CurrentRank >= MarioLand.Rank.Shell;
     }
 }
+
 [Context(MarioLand.ItemContext.Accessory)]
 public class SlotAccessory3 : MarioLandSlotAccessory
 {

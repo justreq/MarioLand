@@ -6,6 +6,7 @@ using MarioLand.Content.Tiles;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -28,7 +29,7 @@ public class MarioLandPlayer : ModPlayer
     public MarioLand.Rank CurrentRank = MarioLand.Rank.Mushroom;
 
     public int XPNeededForNextLevel = 24;
-    public List<int> RankLevels = new() { 1, 6, 12, 18, 25, 40 };
+    public List<int> RankLevels = [1, 6, 12, 18, 25, 40];
 
     public MarioLand.Transformation PreviousTransformation;
     public MarioLand.Transformation CurrentTransformation = MarioLand.Transformation.None;
@@ -52,12 +53,13 @@ public class MarioLandPlayer : ModPlayer
 
     public int StatPowActual => StatPow + StatPowBonus;
 
-    public List<int> StatIncreaseValues = new();
+    public List<int> StatIncreaseValues = [];
 
     public bool PlayLevelUpAnimation = false;
     public int LevelUpAnimationTimer = 0;
 
-    public bool IsGrounded => Collision.SolidCollision(Player.Bottom, 1, 1);
+    // Cue agressive inlining
+    public bool IsGrounded => new List<Vector2> { Player.BottomLeft, Player.Bottom, Player.BottomRight, Player.BottomLeft + new Vector2(0, 1), Player.Bottom + new Vector2(0, 1), Player.BottomRight + new Vector2(0, 1), Player.BottomLeft + new Vector2(0, 17), Player.Bottom + new Vector2(0, 17), Player.BottomRight + new Vector2(0, 17) }.Any(e => Framing.GetTileSafely(e.ToTileCoordinates()).HasTile && (Main.tileSolid[Framing.GetTileSafely(e.ToTileCoordinates()).TileType] || Main.tileSolidTop[Framing.GetTileSafely(e.ToTileCoordinates()).TileType])) && Player.velocity.Y >= 0;
 
     public bool GroundPoundRequested = false;
     public int GroundPoundStallTimer = 0;
@@ -91,7 +93,7 @@ public class MarioLandPlayer : ModPlayer
 
     public void LevelUp()
     {
-        StatIncreaseValues = new() { Main.rand.Next(1, 6), Main.rand.Next(1, 6), Main.rand.Next(1, 6), Main.rand.Next(1, 6) };
+        StatIncreaseValues = [Main.rand.Next(1, 6), Main.rand.Next(1, 6), Main.rand.Next(1, 6), Main.rand.Next(1, 6)];
         PlayLevelUpAnimation = true;
 
         PreviousLevel = CurrentLevel;
@@ -122,7 +124,7 @@ public class MarioLandPlayer : ModPlayer
 
         if (DisgustTimer >= 60)
         {
-            SoundEngine.PlaySound(new($"{nameof(MarioLand)}/Assets/Sounds/Disgusted{CurrentTransformation}"));
+            SoundEngine.PlaySound(new($"{nameof(MarioLand)}/Assets/Sounds/Disgusted{CurrentTransformation}") { Volume = 0.5f });
             DisgustTimer = 0;
             JustConsumedBadItem = false;
         }
@@ -143,7 +145,7 @@ public class MarioLandPlayer : ModPlayer
                     dust.velocity = new(i % 2 == 0 ? -1f : 1f, 0f);
                 }
 
-                SoundEngine.PlaySound(new($"{nameof(MarioLand)}/Assets/Sounds/GroundPound"));
+                SoundEngine.PlaySound(new($"{nameof(MarioLand)}/Assets/Sounds/GroundPound") { Volume = 0.5f });
             }
 
             GroundPoundRequested = false;
@@ -265,7 +267,7 @@ public class MarioLandPlayer : ModPlayer
 
         int powerup = GetPowerupToSpawnFromItemBlock(forceCoinSpawn);
 
-        int item = Item.NewItem(Player.GetSource_TileInteraction(position.X, position.Y), (position).ToWorldCoordinates(), new Item(powerup, powerup == ItemID.GoldCoin ? Main.rand.Next(1, 11) : 1));
+        int item = Item.NewItem(Player.GetSource_TileInteraction(position.X, position.Y), position.ToWorldCoordinates(), new Item(powerup, powerup == ItemID.GoldCoin ? Main.rand.Next(1, 11) : 1));
         Main.item[item].noGrabDelay = 60;
 
         WorldGen.KillTile(position.X, position.Y);
@@ -441,7 +443,7 @@ public class MarioLandPlayer : ModPlayer
         Player.body = EquipLoader.GetEquipSlot(Mod, equipName, EquipType.Body);
         Player.legs = EquipLoader.GetEquipSlot(Mod, equipName, EquipType.Legs);
 
-        if (CurrentPowerUp == MarioLand.PowerUp.SuperLeaf && IsFlyingWithPSpeed)
+        if (MarioLand.TailPowerUps.Contains(CurrentPowerUp) && IsFlyingWithPSpeed)
         {
             Player.head = EquipLoader.GetEquipSlot(Mod, equipName + "Flying", EquipType.Head);
             Player.body = EquipLoader.GetEquipSlot(Mod, equipName + "Flying", EquipType.Body);
@@ -512,7 +514,7 @@ public class MarioLandPlayer : ModPlayer
             JumpDamageCooldown = 0;
 
             if (StompCount > 7) Player.Heal(5);
-            SoundEngine.PlaySound(new($"{nameof(MarioLand)}/Assets/Sounds/{(StompCount <= 7 ? $"Stomp{StompCount}" : "Heal")}"));
+            SoundEngine.PlaySound(new($"{nameof(MarioLand)}/Assets/Sounds/{(StompCount <= 7 ? $"Stomp{StompCount}" : "Heal")}") { Volume = 0.5f });
 
             if (target.life <= 0) GrantXP((int)Math.Ceiling((double)(target.damage + target.defense + target.lifeMax) / 20));
 
@@ -544,13 +546,13 @@ public class MarioLandPlayer : ModPlayer
         {
             if (CurrentTransformation != MarioLand.Transformation.None)
             {
-                SoundEngine.PlaySound(new($"{nameof(MarioLand)}/Assets/Sounds/PowerUp"));
-                SoundEngine.PlaySound(new($"{nameof(MarioLand)}/Assets/Sounds/Equip{CurrentTransformation}"));
+                SoundEngine.PlaySound(new($"{nameof(MarioLand)}/Assets/Sounds/PowerUp") { Volume = 0.5f });
+                SoundEngine.PlaySound(new($"{nameof(MarioLand)}/Assets/Sounds/Equip{CurrentTransformation}") { Volume = 0.5f });
             }
             else
             {
-                SoundEngine.PlaySound(new($"{nameof(MarioLand)}/Assets/Sounds/PowerDown"));
-                SoundEngine.PlaySound(new($"{nameof(MarioLand)}/Assets/Sounds/Unequip{PreviousTransformation}"));
+                SoundEngine.PlaySound(new($"{nameof(MarioLand)}/Assets/Sounds/PowerDown") { Volume = 0.5f });
+                SoundEngine.PlaySound(new($"{nameof(MarioLand)}/Assets/Sounds/Unequip{PreviousTransformation}") { Volume = 0.5f });
             }
 
             ParticleOrchestrator.RequestParticleSpawn(clientOnly: false, ParticleOrchestraType.LoadoutChange, new ParticleOrchestraSettings
@@ -562,21 +564,14 @@ public class MarioLandPlayer : ModPlayer
 
         if (PreviousPowerUp != CurrentPowerUp)
         {
-            if (CurrentPowerUp != MarioLand.PowerUp.None) SoundEngine.PlaySound(new($"{nameof(MarioLand)}/Assets/Sounds/PowerUp"));
-            else SoundEngine.PlaySound(new($"{nameof(MarioLand)}/Assets/Sounds/PowerDown"));
+            if (CurrentPowerUp != MarioLand.PowerUp.None) SoundEngine.PlaySound(new($"{nameof(MarioLand)}/Assets/Sounds/PowerUp{(MarioLand.TailPowerUps.Contains(CurrentPowerUp) ? "Tail" : "")}") { Volume = 0.5f });
+            else SoundEngine.PlaySound(new($"{nameof(MarioLand)}/Assets/Sounds/PowerDown") { Volume = 0.5f });
 
             ParticleOrchestrator.RequestParticleSpawn(clientOnly: false, ParticleOrchestraType.LoadoutChange, new ParticleOrchestraSettings
             {
                 PositionInWorld = Player.Center,
                 UniqueInfoPiece = 0
             }, Player.whoAmI);
-        }
-
-        if (DoTransformationEffects)
-        {
-            Player.statDefense += StatDef + StatDefBonus;
-            Player.statLifeMax2 = StatHPMax + StatHPMaxBonus;
-            Player.statLife = Player.statLife > Player.statLifeMax2 ? Player.statLifeMax2 : Player.statLife;
         }
 
         if (PlayLevelUpAnimation)
@@ -642,7 +637,7 @@ public class MarioLandPlayer : ModPlayer
 
     public override void OnHurt(Player.HurtInfo info)
     {
-        if (DoTransformationEffects) SoundEngine.PlaySound(new($"{nameof(MarioLand)}/Assets/Sounds/{CurrentTransformation}Hurt{Main.rand.Next(1, 5)}"));
+        if (DoTransformationEffects) SoundEngine.PlaySound(new($"{nameof(MarioLand)}/Assets/Sounds/{CurrentTransformation}Hurt{Main.rand.Next(1, 5)}") { Volume = 0.5f });
     }
 
     public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
@@ -682,10 +677,9 @@ public class MarioLandPlayer : ModPlayer
         }
 
         int healAmount = Player.statLifeMax2 / (item == ModContent.ItemType<OneUpMushroom>() ? 2 : 1);
-
         Player.HealEffect(healAmount);
         Player.statLife = healAmount;
-        SoundEngine.PlaySound(new($"{nameof(MarioLand)}/Assets/Sounds/Heal"));
+        SoundEngine.PlaySound(new($"{nameof(MarioLand)}/Assets/Sounds/Heal") { Volume = 0.5f });
 
         if (inVoidBag) Player.bank4.item[inventorySlot].stack--;
         else Player.inventory[inventorySlot].stack--;
