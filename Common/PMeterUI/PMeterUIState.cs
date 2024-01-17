@@ -30,7 +30,7 @@ public class PMeterUIState : UIState
 
         for (int i = 0; i < 6; i++)
         {
-            UIImageFramed pMeterIncrement = PMeterContainer.AddElement(new UIImageFramed(ModContent.Request<Texture2D>($"{nameof(MarioLand)}/Assets/Textures/UI/PMeterIncrement", ReLogic.Content.AssetRequestMode.ImmediateLoad), new(0, 0, 26, 22)).With(e =>
+            UIImageFramed pMeterIncrement = PMeterContainer.AddElement(new UIImageFramed(ModContent.Request<Texture2D>($"{nameof(MarioLand)}/Common/PMeterUI/PMeterIncrement", ReLogic.Content.AssetRequestMode.ImmediateLoad), new(0, 0, 26, 22)).With(e =>
             {
                 e.VAlign = 0.5f;
                 e.Left = StyleDimension.FromPixels(30f * i);
@@ -39,7 +39,7 @@ public class PMeterUIState : UIState
             PMeterIncrements.Add(pMeterIncrement);
         }
 
-        PMeterWing = PMeterContainer.AddElement(new UIImageFramed(ModContent.Request<Texture2D>($"{nameof(MarioLand)}/Assets/Textures/UI/PMeterWing", ReLogic.Content.AssetRequestMode.ImmediateLoad), new(0, 0, 32, 36)).With(e =>
+        PMeterWing = PMeterContainer.AddElement(new UIImageFramed(ModContent.Request<Texture2D>($"{nameof(MarioLand)}/Common/PMeterUI/PMeterWing", ReLogic.Content.AssetRequestMode.ImmediateLoad), new(0, 0, 32, 36)).With(e =>
         {
             e.VAlign = 0.5f;
             e.HAlign = 1f;

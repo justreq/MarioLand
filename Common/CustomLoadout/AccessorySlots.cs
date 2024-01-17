@@ -22,7 +22,7 @@ public abstract class MarioLandSlot : ModAccessorySlot
     private MarioLand.ItemContext Context => ((Context)GetType().GetCustomAttributes(typeof(Context), false)[0]).context;
 
     public override bool DrawVanitySlot => false;
-    public override string FunctionalTexture => $"{nameof(MarioLand)}/Assets/Textures/UI/{Name}";
+    public override string FunctionalTexture => $"{nameof(MarioLand)}/Common/CustomLoadout/{Name}";
 
     public override void OnMouseHover(AccessorySlotType context)
     {
@@ -58,7 +58,7 @@ public abstract class MarioLandSlot : ModAccessorySlot
 
 public abstract class MarioLandSlotAccessory : MarioLandSlot
 {
-    public override string FunctionalTexture => $"{nameof(MarioLand)}/Assets/Textures/UI/SlotAccessory";
+    public override string FunctionalTexture => $"{nameof(MarioLand)}/Common/CustomLoadout/SlotAccessory";
 
     public override void OnMouseHover(AccessorySlotType context)
     {

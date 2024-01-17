@@ -4,10 +4,10 @@ using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria;
 
-namespace MarioLand.Common.PassportUI;
-public class PassportUISystem : ModSystem
+namespace MarioLand.Common.PMeterUI;
+public class StatIconsUISystem : ModSystem
 {
-    public UserInterface PassportUserInterface;
+    public UserInterface StatIconsUserInterface;
     private GameTime lastUpdateUiGameTime;
 
     public override void Load()
@@ -19,17 +19,17 @@ public class PassportUISystem : ModSystem
     {
         if (!Main.dedServ)
         {
-            PassportUIState PassportUIState = new();
-            PassportUserInterface = new UserInterface();
-            PassportUserInterface.SetState(PassportUIState);
-            PassportUIState.Activate();
+            StatIconsUIState StatIconsUIState = new();
+            StatIconsUserInterface = new UserInterface();
+            StatIconsUserInterface.SetState(StatIconsUIState);
+            StatIconsUIState.Activate();
         }
     }
 
     public override void UpdateUI(GameTime gameTime)
     {
         lastUpdateUiGameTime = gameTime;
-        if (PassportUIState.Visible) PassportUserInterface.Update(gameTime);
+        if (StatIconsUIState.Visible) StatIconsUserInterface.Update(gameTime);
     }
 
     public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
@@ -37,9 +37,9 @@ public class PassportUISystem : ModSystem
         int mouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
         if (mouseTextIndex != -1)
         {
-            layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer("MarioLand: Passport User Interface", delegate
+            layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer("MarioLand: Stat Icons User Interface", delegate
             {
-                if (lastUpdateUiGameTime != null && PassportUIState.Visible) PassportUserInterface.Draw(Main.spriteBatch, lastUpdateUiGameTime);
+                if (lastUpdateUiGameTime != null && StatIconsUIState.Visible) StatIconsUserInterface.Draw(Main.spriteBatch, lastUpdateUiGameTime);
 
                 return true;
             }, InterfaceScaleType.UI));

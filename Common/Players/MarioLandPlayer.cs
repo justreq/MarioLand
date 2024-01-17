@@ -1,5 +1,4 @@
 ﻿using MarioLand.Common.CustomLoadout;
-using MarioLand.Common.PassportUI;
 using MarioLand.Content.Items.Consumables;
 using MarioLand.Content.Items.PowerUps;
 using MarioLand.Content.Tiles;
@@ -453,13 +452,6 @@ public class MarioLandPlayer : ModPlayer
 
     public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)
     {
-        if (drawInfo.drawPlayer == PassportUIState.UICharacter)
-        {
-            drawInfo.colorArmorHead = Color.White;
-            drawInfo.colorArmorBody = Color.White;
-            drawInfo.colorArmorLegs = Color.White;
-        }
-
         if (!DoTransformationEffects) return;
 
         if (TanookiStatue)

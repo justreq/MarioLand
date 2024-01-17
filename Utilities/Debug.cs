@@ -10,7 +10,6 @@ using Terraria.IO;
 using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.GameInput;
-using MarioLand.Common.PassportUI;
 using MarioLand.Common.PMeterUI;
 
 namespace MarvelTerrariaUniverse.Utilities;
@@ -55,33 +54,6 @@ class AutoJoinWorldSystem : ModSystem
                 {
                     new UIMouseEvent(item, item.GetOuterDimensions().Position()), item
                 });
-        }
-    }
-}
-
-class ReloadUISystem : ModSystem
-{
-    public static ModKeybind ReloadUI { get; private set; }
-
-    public override void Load()
-    {
-        ReloadUI = KeybindLoader.RegisterKeybind(Mod, "ReloadUI", "R");
-    }
-
-    public override void Unload()
-    {
-        ReloadUI = null;
-    }
-}
-
-class ReloadUIPlayer : ModPlayer
-{
-    public override void ProcessTriggers(TriggersSet triggersSet)
-    {
-        if (ReloadUISystem.ReloadUI.JustPressed && !Main.dedServ)
-        {
-            ModContent.GetInstance<PassportUISystem>().LoadUI();
-            ModContent.GetInstance<PMeterUISystem>().LoadUI();
         }
     }
 }

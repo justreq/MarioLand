@@ -16,9 +16,6 @@ public class Goomba : ModNPC
         Surprise,
     }
 
-    // These are reference properties. One, for example, lets us write AI_State as if it's NPC.ai[0], essentially giving the index zero our own name.
-    // Here they help to keep our AI code clear of clutter. Without them, every instance of "AI_State" in the AI code below would be "npc.ai[0]", which is quite hard to read.
-    // This is all to just make beautiful, manageable, and clean code.
     public ref float AI_State => ref NPC.ai[0];
     public ref float AI_Timer => ref NPC.ai[1];
 
@@ -42,7 +39,7 @@ public class Goomba : ModNPC
 
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
-        return SpawnCondition.OverworldDaySlime.Chance * 0.1f;
+        return SpawnCondition.OverworldDaySlime.Chance * 0.25f;
     }
 
     public override void AI()

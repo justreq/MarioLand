@@ -15,7 +15,7 @@ internal class ExLoadoutButtons : ILoadable
     {
         if (!Main.dedServ)
         {
-            Main.QueueMainThreadAction(() => LoadoutButtonsTexture = mod.Assets.Request<Texture2D>("Assets/Textures/UI/LoadoutButton"));
+            Main.QueueMainThreadAction(() => LoadoutButtonsTexture = mod.Assets.Request<Texture2D>("Common/CustomLoadout/LoadoutButton"));
         }
     }
 

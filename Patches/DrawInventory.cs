@@ -1,4 +1,5 @@
 ﻿using MarioLand.Common.Players;
+using Microsoft.Xna.Framework;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using Terraria;
@@ -69,8 +70,13 @@ internal sealed class DrawInventory : BasePatch
         ILLabel label4 = c.DefineLabel();
         c.Emit(OpCodes.Brtrue, label4);
 
-        c.TryGotoNext(MoveType.After, i => i.MatchCall<Main>("DrawDefenseCounter"));
+        c.TryGotoNext(MoveType.Before, i => i.MatchCall<AccessorySlotLoader>("get_DefenseIconPosition"));
 
         c.MarkLabel(label4);
+
+        c.TryGotoNext(MoveType.After, i => i.MatchConvI4());
+
+        c.Emit(OpCodes.Ldc_I4, 93);
+        c.Emit(OpCodes.Add);
     }
 }

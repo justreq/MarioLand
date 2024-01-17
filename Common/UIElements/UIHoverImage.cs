@@ -6,8 +6,9 @@ using Terraria.ModLoader;
 namespace MarioLand.Common.UIElements;
 internal class UIHoverImage : UIImage
 {
-    string texture;
-    string hoverText;
+    internal string texture;
+    internal string hoverText;
+
     public UIHoverImage(string texture, string hoverText) : base(ModContent.Request<Texture2D>(texture, ReLogic.Content.AssetRequestMode.ImmediateLoad))
     {
         this.texture = texture;
