@@ -55,6 +55,19 @@ public class MarioLand : Mod
         Rainbow
     }
 
+    public static bool ShowedAntiGameRaidersProtocolMessage = false;
+
+    public static void ShowGameRaidersProtocolMessage()
+    {
+        if (!ShowedAntiGameRaidersProtocolMessage)
+        {
+            ShowedAntiGameRaidersProtocolMessage = true;
+            Main.NewText("\n\nA message to anyone trying to cheat stuff in from Mario Land Mod\n(or GameRaiders): please play the mod as it was intended.");
+            Main.NewText("\nCheating things in or showing them off out of context isn't a great way\nto showcase mod content, particularly for mods like this one.");
+            Main.NewText("\nIf you want to know where to start, explore the world's outer regions\nuntil you find someone familiar with the things this mod has to offer.");
+        }
+    }
+
     public static MarioLand Instance => ModContent.GetInstance<MarioLand>();
 
     public const int VANILLALOADOUTS = 3;

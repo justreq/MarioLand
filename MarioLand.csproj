@@ -1,20 +1,37 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	<Import Project="..\tModLoader.targets" />
 	<PropertyGroup>
 		<AssemblyName>MarioLand</AssemblyName>
 		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
 	<ItemGroup>
+		<Reference Include="DragonLens">
+		  <HintPath>..\..\ModReader\DragonLens\DragonLens.dll</HintPath>
+		</Reference>
 		<Reference Include="StructureHelper">
 			<HintPath>lib\StructureHelper.dll</HintPath>
 		</Reference>
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="Krafs.Publicizer" Version="2.3.0">
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	    <PrivateAssets>all</PrivateAssets>
+	  </PackageReference>
 	</ItemGroup>
 	<PropertyGroup>
 		<DefineConstants>$(DefineConstants);BUILDINGFROMCSPROJ_MOD</DefineConstants>
 		<OutputType>Exe</OutputType>
 	</PropertyGroup>
-
 	<Target Name="CreateTMLPathTxt" AfterTargets="AfterBuild">
 		<WriteLinesToFile File="$(OutDir)tmlpath.txt" Lines="$(TerrariaSteamPath)$(tMLPath)" />
 	</Target>
+	<ItemGroup>
+		<Publicize Include="DragonLens:DragonLens.Content.Tools.Spawners.BuffButton" />
+		<Publicize Include="DragonLens:DragonLens.Content.Tools.Spawners.DustButton" />
+		<Publicize Include="DragonLens:DragonLens.Content.Tools.Spawners.ItemButton" />
+		<Publicize Include="DragonLens:DragonLens.Content.Tools.Spawners.NPCButton" />
+		<Publicize Include="DragonLens:DragonLens.Content.Tools.Spawners.ProjectileButton" />
+		<Publicize Include="DragonLens:DragonLens.Content.Tools.Spawners.SoundButton" />
+		<Publicize Include="DragonLens:DragonLens.Content.Tools.Spawners.TileButton" />
+	</ItemGroup>
 </Project>

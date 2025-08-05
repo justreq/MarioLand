@@ -2,3 +2,4 @@ displayName = Mario Land
 author = Arnimox
 version = 0.1
 dllReferences = StructureHelper
+weakReferences = DragonLens
