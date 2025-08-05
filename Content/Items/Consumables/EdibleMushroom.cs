@@ -16,11 +16,11 @@ public abstract class EdibleMushroom : ModItem
 
         Main.RegisterItemAnimation(Type, new DrawAnimationVertical(int.MaxValue, 3));
         ItemID.Sets.IsFood[Type] = true;
-        ItemID.Sets.FoodParticleColors[Item.type] = new Color[3] {
-                new Color(234, 51, 34),
-                new Color(255, 188, 140),
-                new Color(5, 5, 5)
-            };
+        ItemID.Sets.FoodParticleColors[Item.type] = [
+                new(234, 51, 34),
+                new(255, 188, 140),
+                new(5, 5, 5)
+            ];
     }
 
     public override void SetDefaults()
@@ -72,11 +72,11 @@ public class PoisonMushroom : EdibleMushroom
     {
         base.SetStaticDefaults();
 
-        ItemID.Sets.FoodParticleColors[Item.type] = new Color[3] {
-                new Color(147, 63, 164),
-                new Color(251, 195, 230),
-                new Color(5, 5, 5)
-            };
+        ItemID.Sets.FoodParticleColors[Item.type] = [
+                new(147, 63, 164),
+                new(251, 195, 230),
+                new(5, 5, 5)
+            ];
     }
 
     public override void SetDefaults()

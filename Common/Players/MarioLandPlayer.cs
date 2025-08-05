@@ -273,9 +273,12 @@ public class MarioLandPlayer : ModPlayer
         WorldGen.PlaceTile(position.X, position.Y, (ushort)ModContent.TileType<EmptyBlock>(), true, true);
     }
 
-    public int GetPowerupToSpawnFromItemBlock(bool forceCoinSpawn = false)
+    public int GetPowerupToSpawnFromItemBlock(bool forceCoinSpawn = false, bool retry = false)
     {
-        if (Main.rand.NextBool(5) || forceCoinSpawn) return ItemID.GoldCoin;
+        if (!retry)
+        {
+            if (Main.rand.NextBool(5) || forceCoinSpawn) return ItemID.SilverCoin;
+        }
 
         int powerup = 0;
 
@@ -415,7 +418,7 @@ public class MarioLandPlayer : ModPlayer
             }
         }
 
-        if (Player.HasItemInAnyInventory(powerup)) powerup = GetPowerupToSpawnFromItemBlock();
+        if (Player.HasItemInAnyInventory(powerup)) powerup = GetPowerupToSpawnFromItemBlock(retry: true);
 
         return powerup;
     }

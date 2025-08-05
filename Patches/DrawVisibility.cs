@@ -22,7 +22,7 @@ internal sealed class DrawVisibility : BasePatch
         ILCursor c = new(il);
         ILLabel target = null;
 
-        c.GotoNext(MoveType.After, i => i.MatchCallOrCallvirt(typeof(Rectangle).GetMethod("Contains", new Type[] { typeof(Point) })), i => i.MatchBrfalse(out target));
+        c.GotoNext(MoveType.After, i => i.MatchCallOrCallvirt(typeof(Rectangle).GetMethod("Contains", [typeof(Point)])), i => i.MatchBrfalse(out target));
 
         c.EmitDelegate(() => Main.LocalPlayer.GetModPlayer<LoadoutPlayer>().UsingCustomLoadout);
         c.Emit(OpCodes.Brtrue, target);

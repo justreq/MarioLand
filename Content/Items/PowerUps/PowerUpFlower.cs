@@ -38,7 +38,7 @@ public abstract class PowerUpFlower : PowerUpItem
 
         modPlayer.CurrentPowerUp = Data.powerUp;
 
-        if (PlayerInput.Triggers.JustPressed.MouseLeft && !player.mouseInterface && Main.mouseItem.IsAir && player.HeldItem.IsAir && !modPlayer.JustSummonedProjectile)
+        if (PlayerInput.Triggers.JustPressed.MouseRight && !player.mouseInterface && !modPlayer.JustSummonedProjectile)
         {
             int direction = Math.Sign(Main.MouseWorld.X - player.position.X);
 

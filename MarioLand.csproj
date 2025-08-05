@@ -1,102 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
 	<Import Project="..\tModLoader.targets" />
 	<PropertyGroup>
 		<AssemblyName>MarioLand</AssemblyName>
-		<TargetFramework>net6.0</TargetFramework>
-		<PlatformTarget>AnyCPU</PlatformTarget>
 		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
-	<ItemGroup>
-		<AdditionalFiles Remove="NewFile1.txt" />
-	</ItemGroup>
-	<ItemGroup>
-		<None Remove="Assets\Textures\LoadoutButton.png" />
-		<None Remove="Assets\Textures\SlotAccessory.png" />
-		<None Remove="Assets\Textures\SlotBoots.png" />
-		<None Remove="Assets\Textures\SlotGloves.png" />
-		<None Remove="Assets\Textures\SlotOveralls.png" />
-		<None Remove="Assets\Textures\SlotPowerUp.png" />
-		<None Remove="Assets\Textures\SlotSocks.png" />
-		<None Remove="Assets\Textures\SlotTransformation.png" />
-		<None Remove="Assets\Textures\Transformations\Mario\MarioFireFlower_Body.png" />
-		<None Remove="Assets\Textures\Transformations\Mario\MarioFireFlower_Head.png" />
-		<None Remove="Assets\Textures\Transformations\Mario\MarioFireFlower_Legs.png" />
-		<None Remove="Assets\Textures\Transformations\Mario\MarioHammerSuit_Body.png" />
-		<None Remove="Assets\Textures\Transformations\Mario\MarioHammerSuit_Head.png" />
-		<None Remove="Assets\Textures\Transformations\Mario\MarioHammerSuit_Legs.png" />
-		<None Remove="Assets\Textures\Transformations\Mario\MarioIceFlower_Body.png" />
-		<None Remove="Assets\Textures\Transformations\Mario\MarioIceFlower_Head.png" />
-		<None Remove="Assets\Textures\Transformations\Mario\MarioIceFlower_Legs.png" />
-		<None Remove="Assets\Textures\Transformations\Mario\MarioNone_Body.png" />
-		<None Remove="Assets\Textures\Transformations\Mario\MarioNone_Head.png" />
-		<None Remove="Assets\Textures\Transformations\Mario\MarioNone_Legs.png" />
-		<None Remove="Assets\Textures\Transformations\Mario\MarioSuperLeafFlying_Body.png" />
-		<None Remove="Assets\Textures\Transformations\Mario\MarioSuperLeafFlying_Head.png" />
-		<None Remove="Assets\Textures\Transformations\Mario\MarioSuperLeafFlying_Legs.png" />
-		<None Remove="Assets\Textures\Transformations\Mario\MarioSuperLeaf_Body.png" />
-		<None Remove="Assets\Textures\Transformations\Mario\MarioSuperLeaf_Head.png" />
-		<None Remove="Assets\Textures\Transformations\Mario\MarioSuperLeaf_Legs.png" />
-		<None Remove="Assets\Textures\Transformations\Mario\MarioTanookiSuitFlying_Body.png" />
-		<None Remove="Assets\Textures\Transformations\Mario\MarioTanookiSuitFlying_Head.png" />
-		<None Remove="Assets\Textures\Transformations\Mario\MarioTanookiSuitFlying_Legs.png" />
-		<None Remove="Assets\Textures\Transformations\Mario\MarioTanookiSuit_Body.png" />
-		<None Remove="Assets\Textures\Transformations\Mario\MarioTanookiSuit_Head.png" />
-		<None Remove="Assets\Textures\Transformations\Mario\MarioTanookiSuit_Legs.png" />
-		<None Remove="Assets\VanillaMushroom.png" />
-		<None Remove="Content\Items\Accessories\AccessoryItem.png" />
-		<None Remove="Content\Items\Boots\BootsItem.png" />
-		<None Remove="Content\Items\Consumables\MaxMushroom.png" />
-		<None Remove="Content\Items\Consumables\OneUpDeluxe.png" />
-		<None Remove="Content\Items\Consumables\OneUpMushroom.png" />
-		<None Remove="Content\Items\Consumables\PoisonMushroom.png" />
-		<None Remove="Content\Items\Consumables\SuperMushroom.png" />
-		<None Remove="Content\Items\Consumables\UltraMushroom.png" />
-		<None Remove="Content\Items\Gloves\GlovesItem.png" />
-		<None Remove="Content\Items\Overalls\AOKWear.png" />
-		<None Remove="Content\Items\Overalls\BalmWear.png" />
-		<None Remove="Content\Items\Overalls\BrawnyWear.png" />
-		<None Remove="Content\Items\Overalls\DStarWear.png" />
-		<None Remove="Content\Items\Overalls\FighterWear.png" />
-		<None Remove="Content\Items\Overalls\GrownUpWear.png" />
-		<None Remove="Content\Items\Overalls\HeartWear.png" />
-		<None Remove="Content\Items\Overalls\HeroWear.png" />
-		<None Remove="Content\Items\Overalls\KingWear.png" />
-		<None Remove="Content\Items\Overalls\KoopaWear.png" />
-		<None Remove="Content\Items\Overalls\LeisureWear.png" />
-		<None Remove="Content\Items\Overalls\MasterWear.png" />
-		<None Remove="Content\Items\Overalls\MuscleWear.png" />
-		<None Remove="Content\Items\Overalls\PicnicWear.png" />
-		<None Remove="Content\Items\Overalls\StarWear.png" />
-		<None Remove="Content\Items\Overalls\ThinWear.png" />
-		<None Remove="Content\Items\Placeable\RealLuigiPaintingItem.png" />
-		<None Remove="Content\Items\Placeable\RealMarioPaintingItem.png" />
-		<None Remove="Content\Items\PowerUps\CapeFeather.png" />
-		<None Remove="Content\Items\PowerUps\FireFlower.png" />
-		<None Remove="Content\Items\PowerUps\FrogSuit.png" />
-		<None Remove="Content\Items\PowerUps\HammerSuit.png" />
-		<None Remove="Content\Items\PowerUps\IceFlower.png" />
-		<None Remove="Content\Items\PowerUps\SuperLeaf.png" />
-		<None Remove="Content\Items\PowerUps\TanookiSuit.png" />
-		<None Remove="Content\Items\Socks\SocksItem.png" />
-		<None Remove="Content\Items\Transformations\LuigisCap.png" />
-		<None Remove="Content\Items\Transformations\MariosCap.png" />
-		<None Remove="Content\NPCs\Goomba.png" />
-		<None Remove="Content\Projectiles\FireballPowerUpFlower.png" />
-		<None Remove="Content\Projectiles\HammerSuitHammer.png" />
-		<None Remove="Content\Tiles\BrickBlock.png" />
-		<None Remove="Content\Tiles\EmptyBlock.png" />
-		<None Remove="Content\Tiles\QuestionBlock.png" />
-		<None Remove="Content\Tiles\RealLuigiPainting.png" />
-		<None Remove="Content\Tiles\RealMarioPainting.png" />
-		<None Remove="NewFile1.txt" />
-	</ItemGroup>
-	<ItemGroup>
-		<PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
-	</ItemGroup>
 	<ItemGroup>
 		<Reference Include="StructureHelper">
 			<HintPath>lib\StructureHelper.dll</HintPath>
 		</Reference>
 	</ItemGroup>
+	<PropertyGroup>
+		<DefineConstants>$(DefineConstants);BUILDINGFROMCSPROJ_MOD</DefineConstants>
+		<OutputType>Exe</OutputType>
+	</PropertyGroup>
+
+	<Target Name="CreateTMLPathTxt" AfterTargets="AfterBuild">
+		<WriteLinesToFile File="$(OutDir)tmlpath.txt" Lines="$(TerrariaSteamPath)$(tMLPath)" />
+	</Target>
 </Project>

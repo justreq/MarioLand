@@ -12,9 +12,9 @@ public class LoadoutPlayer : ModPlayer
 {
     public EquipmentLoadout CurrentCustomLoadout => CustomLoadouts[CurrentCustomLoadoutIndex];
 
-    public readonly EquipmentLoadout[] CustomLoadouts = new EquipmentLoadout[1] {
+    public readonly EquipmentLoadout[] CustomLoadouts = [
             new(),
-        };
+        ];
 
     public int CurrentCustomLoadoutIndex { get; set; }
     public bool UsingCustomLoadout => CurrentCustomLoadoutIndex != -1;

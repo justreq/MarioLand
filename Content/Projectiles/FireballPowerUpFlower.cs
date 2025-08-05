@@ -50,7 +50,7 @@ public class FireballPowerUpFlower : ModProjectile
         if (Projectile.velocity.X == 0f) Projectile.Kill();
     }
 
-    public override void Kill(int timeLeft)
+    public override void OnKill(int timeLeft)
     {
         for (int i = 0; i < 5; i++)
         {
@@ -65,6 +65,17 @@ public class FireballPowerUpFlower : ModProjectile
 
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
+        if (Projectile.ai[0] == 1 && !target.immortal)
+        {
+            IceBlockProjectile iceBlock = (IceBlockProjectile)Main.projectile[Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.position, Vector2.Zero, ModContent.ProjectileType<IceBlockProjectile>(), 0, 0f, Projectile.owner)].ModProjectile;
+            iceBlock.npc = target;
+            iceBlock.Projectile.timeLeft = (target.lifeMax / (target.lifeMax - hit.Damage)) * 240;
+            iceBlock.Projectile.width = (int)(target.width * 1.5);
+            iceBlock.Projectile.height = (int)(target.height * 1.5);
+            iceBlock.Projectile.Center = target.Center;
+            target.immortal = true;
+        }
+
         if (Main.rand.NextBool(10)) target.AddBuff(Projectile.ai[0] == 0 ? BuffID.OnFire : BuffID.Frostburn, 180);
     }
 }

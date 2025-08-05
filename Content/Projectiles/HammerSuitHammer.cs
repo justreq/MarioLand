@@ -21,7 +21,7 @@ public class HammerSuitHammer : ModProjectile
         Projectile.rotation += Math.Sign(Projectile.velocity.X) * 0.35f;
     }
 
-    public override void Kill(int timeLeft)
+    public override void OnKill(int timeLeft)
     {
         for (int i = 0; i < 5; i++)
         {

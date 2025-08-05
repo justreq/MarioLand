@@ -62,7 +62,7 @@ public abstract class PowerUpTailSwipe : PowerUpItem
             player.velocity.Y = 2f;
         }
 
-        if (PlayerInput.Triggers.JustPressed.MouseLeft && !player.mouseInterface && Main.mouseItem.IsAir && player.HeldItem.IsAir && !Swiping && modPlayer.ConsecutiveJumpCount != 3 && !modPlayer.TanookiStatue && player.mount.Type == -1)
+        if (PlayerInput.Triggers.JustPressed.MouseRight && !player.mouseInterface && !Swiping && modPlayer.ConsecutiveJumpCount != 3 && !modPlayer.TanookiStatue && player.mount.Type == -1)
         {
             StartingDirection = player.direction;
             Swiping = true;
