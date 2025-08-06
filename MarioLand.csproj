@@ -5,6 +5,9 @@
 		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
 	<ItemGroup>
+		<Reference Include="CheatSheet">
+		  <HintPath>..\..\ModReader\CheatSheet\CheatSheet.dll</HintPath>
+		</Reference>
 		<Reference Include="DragonLens">
 		  <HintPath>..\..\ModReader\DragonLens\DragonLens.dll</HintPath>
 		</Reference>
@@ -33,5 +36,7 @@
 		<Publicize Include="DragonLens:DragonLens.Content.Tools.Spawners.ProjectileButton" />
 		<Publicize Include="DragonLens:DragonLens.Content.Tools.Spawners.SoundButton" />
 		<Publicize Include="DragonLens:DragonLens.Content.Tools.Spawners.TileButton" />
+		<Publicize Include="CheatSheet:CheatSheet.Menus.Slot" />
+		<Publicize Include="CheatSheet:CheatSheet.Menus.NPCSlot" />
 	</ItemGroup>
 </Project>
