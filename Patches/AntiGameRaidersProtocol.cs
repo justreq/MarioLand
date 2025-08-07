@@ -15,6 +15,7 @@ internal sealed class AntiGameRaidersProtocol : BasePatch
 {
     internal override void Patch(Mod mod)
     {
+        return;
         // DragonLens:BuffButton
         DragonLensPatch(typeof(BuffButton), "SafeDraw", "buff");
         DragonLensPatch(typeof(BuffButton), "SafeClick", "buff", true);
@@ -53,6 +54,14 @@ internal sealed class AntiGameRaidersProtocol : BasePatch
         MonoModHooks.Modify(typeof(NPCSlot).GetMethod("Init", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance), CheatSheetNPCSlotInit);
         MonoModHooks.Modify(typeof(NPCSlot).GetMethod("Slot2_onLeftClick", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance), CheatSheetNPCSlotSlot2_onLeftClick);
         MonoModHooks.Modify(typeof(NPCSlot).GetMethod("Draw"), CheatSheetNPCSlotDraw);
+
+        // HEROsMod:Slot
+        MonoModHooks.Modify(typeof(HEROsMod.UIKit.UIComponents.Slot).GetMethod("Update"), HEROsModSlotUpdate);
+        MonoModHooks.Modify(typeof(HEROsMod.UIKit.UIComponents.Slot).GetMethod("Slot2_onHover", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance), HEROsModSlotUpdate);
+        MonoModHooks.Modify(typeof(HEROsMod.UIKit.UIComponents.Slot).GetMethod("Draw"), HEROsModSlotDraw);
+        MonoModHooks.Modify(typeof(HEROsMod.UIKit.UIComponents.Slot).GetMethod("Slot2_onLeftClick", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance), HEROsModSlotSlot2_onLeftClick);
+
+        // TODO: HEROsMod:NPCSlot&BuffSlot
     }
 
     static bool IsMarioLandBuff(int buff) => ModContent.GetModBuff(buff) != null && ModContent.GetModBuff(buff).Mod.Name == nameof(MarioLand);
@@ -199,6 +208,59 @@ internal sealed class AntiGameRaidersProtocol : BasePatch
 
         var label = c.DefineLabel();
         c.Emit(OpCodes.Brfalse, label);
+
+        c.Emit(OpCodes.Ret);
+        c.MarkLabel(label);
+    }
+
+    static void HEROsModSlotUpdate(ILContext il)
+    {
+        ILCursor c = new(il);
+
+        c.Emit(OpCodes.Ldarg_0);
+        c.Emit(OpCodes.Ldfld, typeof(HEROsMod.UIKit.UIComponents.Slot).GetField("item", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance));
+
+        c.EmitDelegate(IsMarioLandItem);
+
+        var label = c.DefineLabel();
+        c.Emit(OpCodes.Brfalse, label);
+
+        c.Emit(OpCodes.Ret);
+        c.MarkLabel(label);
+    }
+
+    static void HEROsModSlotDraw(ILContext il)
+    {
+        ILCursor c = new(il);
+
+        c.TryGotoNext(i => i.MatchBrfalse(out _));
+        c.Index -= 2;
+
+        c.Emit(OpCodes.Ldarg_0);
+        c.Emit(OpCodes.Ldfld, typeof(HEROsMod.UIKit.UIComponents.Slot).GetField("item", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance));
+
+        c.EmitDelegate(IsMarioLandItem);
+
+        var label = c.DefineLabel();
+        c.Emit(OpCodes.Brfalse, label);
+
+        c.Emit(OpCodes.Ret);
+        c.MarkLabel(label);
+    }
+
+    static void HEROsModSlotSlot2_onLeftClick(ILContext il)
+    {
+        ILCursor c = new(il);
+
+        c.Emit(OpCodes.Ldarg_0);
+        c.Emit(OpCodes.Ldfld, typeof(HEROsMod.UIKit.UIComponents.Slot).GetField("item", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance));
+
+        c.EmitDelegate(IsMarioLandItem);
+
+        var label = c.DefineLabel();
+        c.Emit(OpCodes.Brfalse, label);
+
+        c.EmitDelegate(MarioLand.ShowGameRaidersProtocolMessage);
 
         c.Emit(OpCodes.Ret);
         c.MarkLabel(label);

@@ -83,6 +83,8 @@ public class MarioLandPlayer : ModPlayer
 
     public bool TanookiStatue = false;
 
+    public bool SuperStar = false;
+
     public void GrantXP(int amount)
     {
         CurrentXP += amount;
@@ -179,7 +181,7 @@ public class MarioLandPlayer : ModPlayer
 
     public void ConsecutiveJumps()
     {
-        if (Player.sliding || GroundPoundRequested || HasPSpeed) ConsecutiveJumpCount = 0;
+        if (Player.sliding || GroundPoundRequested || HasPSpeed || SuperStar) ConsecutiveJumpCount = 0;
 
         if (PlayerInput.Triggers.JustPressed.Jump && IsGrounded && !Player.wet && Math.Abs(Player.velocity.X) > 0f)
         {
@@ -423,6 +425,12 @@ public class MarioLandPlayer : ModPlayer
         return powerup;
     }
 
+    public void SuperStarJumpFlip()
+    {
+        Player.fullRotationOrigin = Player.Hitbox.Size() / 2;
+        Player.fullRotation = Main.GameUpdateCount * 0.35f * Player.direction;
+    }
+
     public override void ResetEffects()
     {
         PreviousTransformation = CurrentTransformation;
@@ -434,6 +442,8 @@ public class MarioLandPlayer : ModPlayer
         StatSPMaxBonus = 0;
         StatPowBonus = 0;
         StatDefBonus = 0;
+
+        SuperStar = false;
     }
 
     public override void FrameEffects()
@@ -457,7 +467,11 @@ public class MarioLandPlayer : ModPlayer
     {
         if (!DoTransformationEffects) return;
 
-        if (TanookiStatue)
+        if (SuperStar)
+        {
+            drawInfo.cHead = drawInfo.cBody = drawInfo.cLegs = ContentSamples.ItemsByType[ItemID.LivingRainbowDye].dye;
+        }
+        else if (TanookiStatue)
         {
             drawInfo.cHead = drawInfo.cBody = drawInfo.cLegs = ContentSamples.ItemsByType[ItemID.ReflectiveMetalDye].dye;
         }
@@ -466,32 +480,35 @@ public class MarioLandPlayer : ModPlayer
 
     public override bool ImmuneTo(PlayerDeathReason damageSource, int cooldownCounter, bool dodgeable)
     {
-        // Jump and ground pound stomp damage / bounce effects
         if (!DoTransformationEffects || Player != Main.LocalPlayer || damageSource.SourceNPCIndex == -1) return base.ImmuneTo(damageSource, cooldownCounter, dodgeable);
 
+        if (SuperStar)
+        {
+            Main.npc[damageSource.SourceNPCIndex].StrikeInstantKill();
+            return true;
+        }
+
+        // Jump and ground pound stomp damage / bounce effects
         if (GroundPoundRequested)
         {
-            for (int i = 0; i < Main.maxNPCs; i++)
+            if (Player.fullRotation % MathHelper.TwoPi == 0)
             {
-                if (Main.npc[i] == Main.npc[damageSource.SourceNPCIndex] && Player.fullRotation % MathHelper.TwoPi == 0)
+                if (!Main.npc[damageSource.SourceNPCIndex].boss)
                 {
-                    if (!Main.npc[i].boss)
-                    {
-                        GrantXP((int)Math.Ceiling((double)(Main.npc[i].damage + Main.npc[i].defense + Main.npc[i].lifeMax) / 20));
-                        Main.npc[i].StrikeInstantKill();
-                    }
-                    else if (TanookiStatue)
-                    {
-                        var target = Main.npc[i];
+                    GrantXP((int)Math.Ceiling((double)(Main.npc[damageSource.SourceNPCIndex].damage + Main.npc[damageSource.SourceNPCIndex].defense + Main.npc[damageSource.SourceNPCIndex].lifeMax) / 20));
+                    Main.npc[damageSource.SourceNPCIndex].StrikeInstantKill();
+                }
+                else if (TanookiStatue)
+                {
+                    var target = Main.npc[damageSource.SourceNPCIndex];
 
-                        Player.ApplyDamageToNPC(target, StatPowActual, 5f, Math.Sign(target.position.X - Player.position.X));
-                        if (target.life <= 0) GrantXP((int)Math.Ceiling((double)(target.damage + target.defense + target.lifeMax) / 20));
-                    }
-                    else
-                    {
-                        Player.velocity.Y = Player.controlJump ? -10f : -7.5f;
-                        GroundPoundRequested = false;
-                    }
+                    Player.ApplyDamageToNPC(target, StatPowActual, 5f, Math.Sign(target.position.X - Player.position.X));
+                    if (target.life <= 0) GrantXP((int)Math.Ceiling((double)(target.damage + target.defense + target.lifeMax) / 20));
+                }
+                else
+                {
+                    Player.velocity.Y = Player.controlJump ? -10f : -7.5f;
+                    GroundPoundRequested = false;
                 }
             }
 

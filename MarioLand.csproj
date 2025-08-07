@@ -11,6 +11,9 @@
 		<Reference Include="DragonLens">
 		  <HintPath>..\..\ModReader\DragonLens\DragonLens.dll</HintPath>
 		</Reference>
+		<Reference Include="HEROsMod">
+		  <HintPath>..\..\ModReader\HEROsMod\HEROsMod.dll</HintPath>
+		</Reference>
 		<Reference Include="StructureHelper">
 			<HintPath>lib\StructureHelper.dll</HintPath>
 		</Reference>
@@ -38,5 +41,6 @@
 		<Publicize Include="DragonLens:DragonLens.Content.Tools.Spawners.TileButton" />
 		<Publicize Include="CheatSheet:CheatSheet.Menus.Slot" />
 		<Publicize Include="CheatSheet:CheatSheet.Menus.NPCSlot" />
+		<Publicize Include="HEROsMod:HEROsMod.UIKit.UIComponents.Slot" />
 	</ItemGroup>
 </Project>

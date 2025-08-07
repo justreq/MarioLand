@@ -58,6 +58,7 @@ public abstract class TransformationItem : ModItem
             {
                 if (modPlayer.PreviousPowerUp != MarioLand.PowerUp.CapeFeather || !modPlayer.IsFlyingWithPSpeed) modPlayer.GroundPound();
                 modPlayer.ConsecutiveJumps();
+                if (modPlayer.SuperStar && !modPlayer.IsGrounded) modPlayer.SuperStarJumpFlip();
             }
 
             player.accFlipper = true;

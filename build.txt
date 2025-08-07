@@ -1,5 +1,5 @@
-displayName = Mario Land
-author = Arnimox
+displayName = Mario Land Mod
+author = Lacroix & Ray
 version = 0.1
 dllReferences = StructureHelper
-weakReferences = DragonLens, CheatSheet
+weakReferences = DragonLens, CheatSheet, HEROsMod

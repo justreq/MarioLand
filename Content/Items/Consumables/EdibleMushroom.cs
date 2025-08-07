@@ -3,7 +3,6 @@ using Terraria.ModLoader;
 using Terraria;
 using System.Linq;
 using Terraria.DataStructures;
-using Microsoft.Xna.Framework;
 using MarioLand.Common.Players;
 using System.Collections.Generic;
 

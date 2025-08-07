@@ -265,6 +265,11 @@ Items: {
 			'Does not come with spaghetti'
 			'''
 	}
+
+	SuperStar: {
+		DisplayName: Super Star
+		Tooltip: "Enhances running and jumping speed, and grants invulnerability"
+	}
 }
 
 Keybinds.ReloadUI.DisplayName: Reload UI
@@ -277,3 +282,10 @@ Projectiles: {
 }
 
 NPCs.Goomba.DisplayName: Goomba
+
+Buffs: {
+	SuperStarBuff: {
+		DisplayName: Super Star
+		Description: "You are invincible and have enhanced movement!"
+	}
+}
