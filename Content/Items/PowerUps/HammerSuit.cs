@@ -22,7 +22,7 @@ public class HammerSuit : PowerUpItem
 
         modPlayer.CurrentPowerUp = MarioLand.PowerUp.HammerSuit;
 
-        if (PlayerInput.Triggers.JustPressed.MouseRight && !player.mouseInterface && !modPlayer.JustSummonedProjectile)
+        if (PlayerInput.Triggers.JustPressed.MouseRight && !player.mouseInterface && !modPlayer.JustSummonedProjectile && modPlayer.GrabProjectile == null)
         {
             modPlayer.ForceDirection = Math.Sign(Main.MouseWorld.X - player.position.X);
 

@@ -16,12 +16,14 @@ public class MarioLandGlobalTile : GlobalTile
             noItem = true;
             int itemType;
 
-            if (Main.rand.NextBool(100)) itemType = ModContent.ItemType<OneUpDeluxe>();
-            else if (Main.rand.NextBool(50)) itemType = ModContent.ItemType<OneUpMushroom>();
-            else if (Main.rand.NextBool(20)) itemType = ModContent.ItemType<MaxMushroom>();
-            else if (Main.rand.Next(20) < 3) itemType = ModContent.ItemType<UltraMushroom>();
-            else if (Main.rand.NextBool(20)) itemType = ModContent.ItemType<PoisonMushroom>();
-            else if (Main.rand.Next(10) < 3) itemType = ModContent.ItemType<SuperMushroom>();
+            float rand = Main.rand.NextFloat();
+
+            if (rand <= 0.01) itemType = ModContent.ItemType<OneUpDeluxe>();
+            else if (rand <= 0.02) itemType = ModContent.ItemType<OneUpMushroom>();
+            else if (rand <= 0.1) itemType = ModContent.ItemType<MaxMushroom>();
+            else if (rand <= 0.15) itemType = ModContent.ItemType<UltraMushroom>();
+            else if (rand <= 0.25) itemType = ModContent.ItemType<PoisonMushroom>();
+            else if (rand <= 0.4) itemType = ModContent.ItemType<SuperMushroom>();
             else itemType = ItemID.Mushroom;
 
             Item item = new(itemType);

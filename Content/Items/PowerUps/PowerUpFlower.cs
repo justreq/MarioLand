@@ -38,14 +38,14 @@ public abstract class PowerUpFlower : PowerUpItem
 
         modPlayer.CurrentPowerUp = Data.powerUp;
 
-        if (PlayerInput.Triggers.JustPressed.MouseRight && !player.mouseInterface && !modPlayer.JustSummonedProjectile)
+        if (PlayerInput.Triggers.JustPressed.MouseRight && !player.mouseInterface && !modPlayer.JustSummonedProjectile && modPlayer.GrabProjectile == null)
         {
             int direction = Math.Sign(Main.MouseWorld.X - player.position.X);
 
             modPlayer.ForceDirection = direction;
 
             SoundEngine.PlaySound(new($"{nameof(MarioLand)}/Assets/Sounds/{Data.useSoundName}") { Volume = 0.5f });
-            Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, new Vector2(5 * direction, 0f), ModContent.ProjectileType<FireballPowerUpFlower>(), modPlayer.StatPowActual, 0f, player.whoAmI, Data.projectileAI0);
+            Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, new Vector2(direction * (Data.projectileAI0 == 0 ? 5 : 2.5f), 0f), ModContent.ProjectileType<FireballPowerUpFlower>(), modPlayer.StatPowActual, 0f, player.whoAmI, Data.projectileAI0);
 
             modPlayer.JustSummonedProjectile = true;
         }
@@ -55,5 +55,5 @@ public abstract class PowerUpFlower : PowerUpItem
 [PowerUpFlowerData(32, 32, MarioLand.PowerUp.FireFlower, "Fireball", 0)]
 public class FireFlower : PowerUpFlower { }
 
-[PowerUpFlowerData(32, 32, MarioLand.PowerUp.IceFlower, "Fireball", 1)]
+[PowerUpFlowerData(32, 32, MarioLand.PowerUp.IceFlower, "Iceball", 1)]
 public class IceFlower : PowerUpFlower { }

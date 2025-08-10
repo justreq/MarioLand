@@ -268,7 +268,7 @@ Items: {
 
 	SuperStar: {
 		DisplayName: Super Star
-		Tooltip: "Enhances running and jumping speed, and grants invulnerability"
+		Tooltip: Enhances running and jumping speed, and grants invulnerability
 	}
 }
 
@@ -286,6 +286,6 @@ NPCs.Goomba.DisplayName: Goomba
 Buffs: {
 	SuperStarBuff: {
 		DisplayName: Super Star
-		Description: "You are invincible and have enhanced movement!"
+		Description: You are invincible and have enhanced movement!
 	}
 }

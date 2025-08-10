@@ -84,11 +84,20 @@ public class MarioLand : Mod
     public static List<PowerUp> TailPowerUps = [PowerUp.SuperLeaf, PowerUp.TanookiSuit];
 
     private Asset<Texture2D> oldMushroomTexture;
+    private Asset<Texture2D>[] oldCursors;
+    public int CursorGrabIndex = -1;
+    public int CursorThrowIndex = -1;
 
     public override void Load()
     {
         oldMushroomTexture = TextureAssets.Item[ItemID.Mushroom];
         TextureAssets.Item[ItemID.Mushroom] = ModContent.Request<Texture2D>($"{nameof(MarioLand)}/Assets/Textures/VanillaMushroom");
+
+        oldCursors = [.. TextureAssets.Cursors];
+        TextureAssets.Cursors = [.. TextureAssets.Cursors, ModContent.Request<Texture2D>($"{nameof(MarioLand)}/Assets/Textures/CursorGrab")];
+        CursorGrabIndex = TextureAssets.Cursors.Length - 1;
+        TextureAssets.Cursors = [.. TextureAssets.Cursors, ModContent.Request<Texture2D>($"{nameof(MarioLand)}/Assets/Textures/CursorThrow")];
+        CursorThrowIndex = TextureAssets.Cursors.Length - 1;
 
         GetFileNames().Where(e => e.StartsWith("Assets/Textures/Transformations")).ToList().ForEach(file =>
         {
@@ -116,6 +125,11 @@ public class MarioLand : Mod
     {
         TextureAssets.Item[ItemID.Mushroom] = oldMushroomTexture;
         oldMushroomTexture = null;
+
+        TextureAssets.Cursors = oldCursors;
+        oldCursors = null;
+        CursorGrabIndex = -1;
+        CursorThrowIndex = -1;
     }
 
     public static void SetupEquipTextures(string baseName)

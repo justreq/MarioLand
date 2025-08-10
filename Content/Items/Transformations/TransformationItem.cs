@@ -1,9 +1,11 @@
 ﻿using MarioLand.Common.CustomLoadout;
 using MarioLand.Common.Globals;
 using MarioLand.Common.Players;
+using MarioLand.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameInput;
@@ -56,13 +58,36 @@ public abstract class TransformationItem : ModItem
         {
             if (modPlayer.PreviousPowerUp != MarioLand.PowerUp.FrogSuit)
             {
-                if (modPlayer.PreviousPowerUp != MarioLand.PowerUp.CapeFeather || !modPlayer.IsFlyingWithPSpeed) modPlayer.GroundPound();
                 modPlayer.ConsecutiveJumps();
+
+                if (modPlayer.PreviousPowerUp != MarioLand.PowerUp.CapeFeather || !modPlayer.IsFlyingWithPSpeed) modPlayer.GroundPound();
                 if (modPlayer.SuperStar && !modPlayer.IsGrounded) modPlayer.SuperStarJumpFlip();
             }
 
             player.accFlipper = true;
             player.spikedBoots = player.position.X != modPlayer.LastWallJumpXPosition && !modPlayer.IsFlyingWithPSpeed && !player.wet ? 1 : 0;
+        }
+
+        if (player == Main.LocalPlayer)
+        {
+            if (modPlayer.GrabProjectile != null) Main.cursorOverride = MarioLand.Instance.CursorThrowIndex;
+            else if (Main.projectile.SkipLast(1).Where(e => e.ModProjectile is GrabbableProjectile).Any(e =>
+            {
+                if (e.getRect().Contains(Main.MouseWorld.ToPoint()) && e.position.Distance(player.position) < 64)
+                {
+                    modPlayer.QueriedGrabProjectile = e.ModProjectile as GrabbableProjectile;
+                    return true;
+                }
+
+                modPlayer.QueriedGrabProjectile = null;
+                return false;
+            })) Main.cursorOverride = MarioLand.Instance.CursorGrabIndex;
+
+            if (PlayerInput.Triggers.JustPressed.MouseLeft && !player.mouseInterface)
+            {
+                modPlayer.InitiateGrabProjectile();
+                modPlayer.InitiateThrowProjectile();
+            }
         }
 
         modPlayer.HealingSickness();

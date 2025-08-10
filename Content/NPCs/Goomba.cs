@@ -28,12 +28,12 @@ public class Goomba : ModNPC
 
     public override void SetDefaults()
     {
-        NPC.width = 34;
-        NPC.height = 42;
+        NPC.width = 32;
+        NPC.height = 32;
         NPC.aiStyle = -1;
         NPC.damage = 1;
         NPC.defense = 1;
-        NPC.lifeMax = 1;
+        NPC.lifeMax = 200;
         NPC.value = 1f;
     }
 

@@ -1,11 +1,14 @@
-﻿using Microsoft.Xna.Framework;
+﻿using MarioLand.Common.Globals;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Linq;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MarioLand.Content.Projectiles;
 public class FireballPowerUpFlower : ModProjectile
@@ -29,18 +32,25 @@ public class FireballPowerUpFlower : ModProjectile
         return false;
     }
 
+    int tileCollideCount = 0;
+
     public override bool OnTileCollide(Vector2 oldVelocity)
     {
-        if (Projectile.velocity.Y != oldVelocity.Y && Math.Abs(oldVelocity.Y) > 1f) Projectile.velocity.Y = -5f;
-        return false;
+        if (Projectile.velocity.Y != oldVelocity.Y && Math.Abs(oldVelocity.Y) > 1f)
+        {
+            Projectile.velocity.Y = Projectile.ai[0] == 0 ? -5f : -4f;
+            tileCollideCount++;
+        }
+
+        return Projectile.ai[0] != 0 && tileCollideCount == 2;
     }
 
     public override void AI()
     {
-        Projectile.velocity.Y = Projectile.velocity.Y + 0.4f;
+        Projectile.velocity.Y += (Projectile.ai[0] == 0 ? 0.4f : 0.2f);
         Projectile.rotation += Math.Sign(Projectile.velocity.X) * 0.35f;
 
-        if (Main.rand.NextBool(3))
+        if (Main.rand.NextBool(Projectile.ai[0] == 0 ? 3 : 2))
         {
             Dust dust = Dust.NewDustDirect(Projectile.Center, Projectile.width / 2, Projectile.height / 2, Projectile.ai[0] == 0 ? DustID.Torch : DustID.BlueTorch, Scale: 2f);
             dust.noGravity = true;
@@ -52,6 +62,8 @@ public class FireballPowerUpFlower : ModProjectile
 
     public override void OnKill(int timeLeft)
     {
+        if (Projectile.ai[0] == 1) SoundEngine.PlaySound(new($"{nameof(MarioLand)}/Assets/Sounds/IceballBreak") { Volume = 0.5f });
+
         for (int i = 0; i < 5; i++)
         {
             Dust dust = Dust.NewDustDirect(Projectile.Center, Projectile.width / 2, Projectile.height / 2, Projectile.ai[0] == 0 ? DustID.Torch : DustID.BlueTorch, Scale: 3f);
@@ -65,17 +77,20 @@ public class FireballPowerUpFlower : ModProjectile
 
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
-        if (Projectile.ai[0] == 1 && !target.immortal)
+        if (Projectile.ai[0] == 0)
         {
-            IceBlockProjectile iceBlock = (IceBlockProjectile)Main.projectile[Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.position, Vector2.Zero, ModContent.ProjectileType<IceBlockProjectile>(), 0, 0f, Projectile.owner)].ModProjectile;
-            iceBlock.npc = target;
-            iceBlock.Projectile.timeLeft = (target.lifeMax / (target.lifeMax - hit.Damage)) * 240;
-            iceBlock.Projectile.width = (int)(target.width * 1.5);
-            iceBlock.Projectile.height = (int)(target.height * 1.5);
-            iceBlock.Projectile.Center = target.Center;
-            target.immortal = true;
+            if (Main.rand.NextBool(10)) target.AddBuff(BuffID.OnFire, 180);
         }
-
-        if (Main.rand.NextBool(10)) target.AddBuff(Projectile.ai[0] == 0 ? BuffID.OnFire : BuffID.Frostburn, 180);
+        else if (target.life > 0)
+        {
+            SoundEngine.PlaySound(new($"{nameof(MarioLand)}/Assets/Sounds/Freeze"));
+            IceBlockProjectile iceBlock = (IceBlockProjectile)Main.projectile[Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.position, Vector2.Zero, ModContent.ProjectileType<IceBlockProjectile>(), 0, 0f, Projectile.owner)].ModProjectile;
+            target.GetGlobalNPC<MarioLandGlobalNPC>().isFrozen = true;
+            iceBlock.npc = target;
+            iceBlock.Projectile.timeLeft = (target.lifeMax / (target.lifeMax - hit.Damage)) * 480 * 999;
+            iceBlock.Projectile.width = target.frame.Width;
+            iceBlock.Projectile.height = target.frame.Height;
+            iceBlock.Projectile.Bottom = target.Bottom;
+        }
     }
 }

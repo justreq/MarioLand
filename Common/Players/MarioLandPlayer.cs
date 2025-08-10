@@ -1,6 +1,7 @@
 ﻿using MarioLand.Common.CustomLoadout;
 using MarioLand.Content.Items.Consumables;
 using MarioLand.Content.Items.PowerUps;
+using MarioLand.Content.Projectiles;
 using MarioLand.Content.Tiles;
 using Microsoft.Xna.Framework;
 using System;
@@ -18,6 +19,7 @@ namespace MarioLand.Common.Players;
 public class MarioLandPlayer : ModPlayer
 {
     public int ForceDirection = 0;
+    public int ForceDirectionTimer = 0;
 
     public int CurrentXP = 0;
 
@@ -84,6 +86,9 @@ public class MarioLandPlayer : ModPlayer
     public bool TanookiStatue = false;
 
     public bool SuperStar = false;
+
+    public GrabbableProjectile QueriedGrabProjectile;
+    public GrabbableProjectile GrabProjectile;
 
     public void GrantXP(int amount)
     {
@@ -431,6 +436,25 @@ public class MarioLandPlayer : ModPlayer
         Player.fullRotation = Main.GameUpdateCount * 0.35f * Player.direction;
     }
 
+    public void InitiateGrabProjectile()
+    {
+        if (Main.cursorOverride == MarioLand.Instance.CursorGrabIndex && QueriedGrabProjectile != null)
+        {
+            GrabProjectile = QueriedGrabProjectile;
+            GrabProjectile.grabOwner = Player.whoAmI;
+            QueriedGrabProjectile = null;
+        }
+    }
+
+    public void InitiateThrowProjectile()
+    {
+        if (Main.cursorOverride == MarioLand.Instance.CursorThrowIndex && GrabProjectile != null)
+        {
+            GrabProjectile.Throw();
+            GrabProjectile = null;
+        }
+    }
+
     public override void ResetEffects()
     {
         PreviousTransformation = CurrentTransformation;
@@ -623,6 +647,12 @@ public class MarioLandPlayer : ModPlayer
         if (TanookiStatue && !PlayerInput.Triggers.Current.Down) TanookiStatue = false;
 
         HitItemBlock();
+
+        if (ForceDirection != 0)
+        {
+            if (ForceDirectionTimer > 0) ForceDirectionTimer--;
+            else ForceDirection = 0;
+        }
     }
 
     public override void SetControls()
@@ -697,5 +727,11 @@ public class MarioLandPlayer : ModPlayer
         else Player.inventory[inventorySlot].stack--;
 
         return false;
+    }
+
+    public override bool CanUseItem(Item item)
+    {
+        if (Main.cursorOverride == MarioLand.Instance.CursorGrabIndex || Main.cursorOverride == MarioLand.Instance.CursorThrowIndex) return false;
+        return base.CanUseItem(item);
     }
 }
