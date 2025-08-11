@@ -19,7 +19,7 @@ internal sealed class DrawNPCHealthBar : BasePatch
     delegate bool orig_DrawHealthBar(NPC npc, ref float scale);
     private bool DrawHealthBar(orig_DrawHealthBar orig, NPC npc, ref float scale)
     {
-        if (!npc.TryGetGlobalNPC<MarioLandGlobalNPC>(out var globalNPC) || !globalNPC.isFrozen) return orig(npc, ref scale);
+        if (!npc.TryGetGlobalNPC<MarioLandGlobalNPC>(out var globalNPC) || !globalNPC.IsFrozen) return orig(npc, ref scale);
         return false;
     }
 }

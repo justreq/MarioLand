@@ -92,6 +92,10 @@ public class MarioLandPlayer : ModPlayer
 
     public void GrantXP(int amount)
     {
+        CurrentXP = 0;
+        CurrentLevel = 0;
+        CurrentRank = 0;
+        return;
         CurrentXP += amount;
 
         if (CurrentXP >= XPNeededForNextLevel) LevelUp();

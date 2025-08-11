@@ -85,9 +85,9 @@ public class FireballPowerUpFlower : ModProjectile
         {
             SoundEngine.PlaySound(new($"{nameof(MarioLand)}/Assets/Sounds/Freeze"));
             IceBlockProjectile iceBlock = (IceBlockProjectile)Main.projectile[Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.position, Vector2.Zero, ModContent.ProjectileType<IceBlockProjectile>(), 0, 0f, Projectile.owner)].ModProjectile;
-            target.GetGlobalNPC<MarioLandGlobalNPC>().isFrozen = true;
+            target.GetGlobalNPC<MarioLandGlobalNPC>().iceBlock = iceBlock;
             iceBlock.npc = target;
-            iceBlock.Projectile.timeLeft = (target.lifeMax / (target.lifeMax - hit.Damage)) * 480 * 999;
+            iceBlock.Projectile.timeLeft = (target.lifeMax / (target.lifeMax - hit.Damage)) * 480;
             iceBlock.Projectile.width = target.frame.Width;
             iceBlock.Projectile.height = target.frame.Height;
             iceBlock.Projectile.Bottom = target.Bottom;
